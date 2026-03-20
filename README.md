@@ -6,19 +6,7 @@
 
 
 
-## Requirements
-
-- MATLAB R2016a or later
-- Image Processing Toolbox (`edge`, `imopen`, `histeq`, `medfilt2`, `strel`, `ssim`)
-
-
-
-
-
 # Part 2 — Poster / Pop Art, Cartoon & Sketch
-
-
-
 
 
 ## Styles Overview
@@ -86,7 +74,7 @@ All functions accept either a file path string or a pre-loaded `double` image ma
 ├── artify_poster.m           # Style: Poster / Pop Art
 ├── artify_cartoon.m          # Style: Cartoon
 ├── artify_sketch.m           # Style: Sketch
-└── figure2/                 # Screenshots and output images
+
 ```
 
 
@@ -98,11 +86,6 @@ All functions accept either a file path string or a pre-loaded `double` image ma
 ```
 Input → Mean-Shift colour quantisation → Contrast stretching → Sobel edge detection → Edge overlay → Output
 ```
-
-**Lab connections:**
-- Lab 2: RGB colour space manipulation
-- Lab 3: Contrast stretching `s = 1/(1 + (k/r)^E)`, `edge(Sobel)`
-- Lab 5: Mean-Shift colour quantisation
 
 **Parameters:**
 
@@ -117,12 +100,12 @@ Input → Mean-Shift colour quantisation → Contrast stretching → Sobel edge 
 
 **Original photograph:**
 
-![Original](figure2/2.png)
+<img src="figure2/2.png" width="600" alt="Original"/>
 
 **Poster / Pop Art result** (Color BW=0.08, nSeeds=400, Edge str=0.5, E=0.9):
 
-![Poster App](figure2/2_poster_app.png)
-![Poster Result](figure2/2_poster_pop_art.png)
+<img src="figure2/2_poster_app.png" width="600" alt="Poster App"/>
+<img src="figure2/2_poster_pop_art.png" width="600" alt="Poster Result"/>
 
 **SSIM: 0.677 | Processing time: 1.67 s**
 
@@ -138,11 +121,6 @@ The relatively high SSIM (0.677) reflects that the poster style preserves the ov
 Input → Morphological opening → Mean-Shift segmentation → LoG edge detection → Edge overlay → Histogram equalisation → Median filter → Output
 ```
 
-**Lab connections:**
-- Lab 3: `histeq`, `medfilt2`, `edge(LoG)`
-- Lab 4: `strel`, `imopen` — removes small bright details before segmentation
-- Lab 5: Mean-Shift segmentation in 5D (R, G, B, x, y) feature space
-
 **Parameters:**
 
 | Parameter | Default | Range | Effect |
@@ -156,8 +134,8 @@ Input → Morphological opening → Mean-Shift segmentation → LoG edge detecti
 
 **Cartoon result** (Spatial BW=10, Color BW=0.1, Edge str=0.45, SE size=2):
 
-![Cartoon App](figure2/2_cartoon_app.png)
-![Cartoon Result](figure2/2_cartoon.png)
+<img src="figure2/2_cartoon_app.png" width="600" alt="Cartoon App"/>
+<img src="figure2/2_cartoon.png" width="600" alt="Cartoon Result"/>
 
 **SSIM: 0.418 | Processing time: 9.64 s**
 
@@ -173,11 +151,6 @@ The lower SSIM (0.418) is expected and desirable: the cartoon style deliberately
 Input → Mean-Shift colour quantisation → Grayscale → Canny edge detection → Invert → Output
 ```
 
-**Lab connections:**
-- Lab 2: `rgb2gray`
-- Lab 3: `edge(Canny, threshold)`
-- Lab 5: Mean-Shift colour quantisation as noise-reduction pre-processing before edge detection
-
 **Parameters:**
 
 | Parameter | Default | Range | Effect |
@@ -191,8 +164,8 @@ Input → Mean-Shift colour quantisation → Grayscale → Canny edge detection 
 
 **Sketch result** (Color BW=0.06, nSeeds=300, Edge thresh=0.15, Line str=0.9):
 
-![Sketch App](figure2/2_sketch_app.png)
-![Sketch Result](figure2/2_sketch.png)
+<img src="figure2/2_sketch_app.png" width="600" alt="Sketch App"/>
+<img src="figure2/2_sketch.png" width="600" alt="Sketch Result"/>
 
 **SSIM: 0.230 | Processing time: 1.09 s**
 
@@ -249,4 +222,6 @@ I would also coordinate with teammates earlier to agree on a shared GUI or commo
 ### Reflection
 
 This project reinforced that classical image processing — without any machine learning — is both powerful and fully interpretable. Every output produced can be explained step by step using concepts from the course labs: Lab 2 (colour spaces), Lab 3 (edge detection, histogram operations), Lab 4 (morphology), Lab 5 (Mean-Shift). That interpretability is something neural style transfer cannot offer. The project also gave me a much better intuition for when each technique is appropriate: morphological opening before segmentation, Mean-Shift before Canny, contrast stretching after quantisation — the ordering of steps matters as much as the steps themselves.
+
+
 
