@@ -87,9 +87,11 @@ All functions accept either a file path string or a pre-loaded `double` image ma
 Input → Mean-Shift colour quantisation → Contrast stretching → Sobel edge detection → Edge overlay → Output
 ```
 **Technical details:**
-- **Contrast stretching:** \( s = 1/(1+(k/r)^E) \), where \( k = \text{mean}(r) \) expands midtones, \( E \) controls curve steepness (higher = stronger Pop Art contrast).
-- **Edge overlay:** At edge pixels, \( C_{\text{out}} = C_{\text{in}} \times (1 - \text{edgeStrength}) \).
+- **Contrast stretching:** `s = 1/(1+(k/r)^E)`, where `k = mean(r)` expands midtones, `E` controls curve steepness (higher = stronger Pop Art contrast).
+- **Edge overlay:** At edge pixels, `C_out = C_in × (1 - edgeStrength)`.
 - **Why Sobel over Canny?** Sobel gives coarser, gradient-based edges that are less sensitive to texture; Canny would pick up fine grain in uniform regions (sky, grass), cluttering the flat graphic style.
+
+
 
 
 **Parameters:**
@@ -127,7 +129,7 @@ Input → Morphological opening → Mean-Shift segmentation → LoG edge detecti
 ```
 
 **Technical details:**
-- **Edge overlay:** \( C_{\text{out}} = C_{\text{in}} \times (1 - \text{edgeStrength}) \) at LoG edge pixels.
+- **Edge overlay:** `C_out = C_in × (1 - edgeStrength)` at LoG edge pixels.
 - **Why imopen before Mean-Shift?** Morphological opening removes small bright structures; without it, fine textures (skin, fabric) cause over-segmentation into many small regions. Pre-smoothing produces larger, cleaner "colour blocks" characteristic of cartoon style.
 - **Why 5D feature space (R,G,B,x,y)?** Spatial coordinates ensure adjacent pixels of similar colour merge into one region, while distant pixels of similar colour stay separate — giving coherent spatial regions.
 
@@ -162,7 +164,7 @@ Input → Mean-Shift colour quantisation → Grayscale → Canny edge detection 
 ```
 
 **Technical details:**
-- **Inversion:** \( \text{out} = 1 - \text{edges} \times \text{lineStrength} \), mapping edges to dark lines on white background (pencil-on-paper effect).
+- **Inversion:** `out = 1 - edges × lineStrength`, mapping edges to dark lines on white background (pencil-on-paper effect).
 - **Why Mean-Shift before Canny?** Canny on the raw image detects both structural contours and surface texture (rock grain, grass). Mean-Shift quantisation acts as a low-pass filter, smoothing high-frequency detail so Canny finds only main boundaries — producing cleaner, more hand-drawn-like lines.
 
 **Parameters:**
@@ -223,7 +225,8 @@ I implemented the full pipeline for three artistic styles (Poster/Pop Art, Carto
 
 **Per-style design iterations:**
 
-**Poster — Why Sobel over Canny?** I initially tried Canny for edge detection, but it produced too many fine texture edges in uniform regions (sky, grass, skin), making the poster look cluttered. Sobel's coarser gradient-based edges are less sensitive to texture and better suited to the flat, graphic style. The contrast formula \( s = 1/(1+(k/r)^E) \) uses \( k = \text{mean intensity} \) so midtones are expanded; I chose \( E \approx 0.9 \) for strong Pop Art contrast without over-saturating.
+
+**Poster — Why Sobel over Canny?** I initially tried Canny for edge detection, but it produced too many fine texture edges in uniform regions (sky, grass, skin), making the poster look cluttered. Sobel's coarser gradient-based edges are less sensitive to texture and better suited to the flat, graphic style. The contrast formula `s = 1/(1+(k/r)^E)` uses `k = mean intensity` so midtones are expanded; I chose `E ≈ 0.9` for strong Pop Art contrast without over-saturating. 
 
 **Cartoon — Why imopen before Mean-Shift?** Without morphological pre-processing, Mean-Shift on the raw image over-segments fine textures (skin pores, fabric weave) into hundreds of tiny regions. I added imopen with a disk structuring element to remove small bright structures first; the segmentation then produces larger, cleaner regions that read as cartoon "colour blocks." The 5D feature space (R,G,B,x,y) ensures spatially adjacent pixels with similar colour merge into one region.
 
@@ -244,7 +247,7 @@ The second lesson was about the purpose of pre-processing. The Mean-Shift quanti
 - **Poster:** Early trials with Canny edges gave messy outlines in uniform areas. Switching to Sobel fixed this — the coarser edges suited the flat style.
 - **Cartoon:** Direct Mean-Shift on the raw image produced fragmented regions. Adding imopen as a pre-step merged small structures and gave the clean-block look.
 - **Sketch:** Canny on the original picked up texture as well as structure. Adding Mean-Shift quantisation before Canny suppressed texture and kept only main contours.
-- **Cartoon performance:** On a 1080p image, Mean-Shift in 5D initially took over 2 minutes. I added automatic downsampling when \( h \times w > 100{,}000 \) to bring it down to ~10 s — a necessary trade-off between resolution and interactivity.
+- **Cartoon performance:** On a 1080p image, Mean-Shift in 5D initially took over 2 minutes. I added automatic downsampling when `h×w > 100,000` to bring it down to ~10 s
 
 The Sketch style produces too many fine texture edges because Canny does not distinguish between structural contours and surface texture. A Difference-of-Gaussians or coherence-enhancing diffusion approach would produce more selective, artist-like line drawings. If I were to redo this, I would invest more time on the Sketch pipeline specifically.
 
