@@ -1,36 +1,24 @@
-# copy-of-work
 # Artify — Photo to Artwork
 
 **DE4-DVS Project | Imperial College London | Spring 2026**
 
 > Transform any photograph into a stylised artwork using classical image processing techniques — no neural networks required.
 
----
 
-# Part 1 — Team Overview
-
-## What We Built
-
-Artify is a MATLAB application that applies artistic style filters to photographs, each grounded in techniques from the DVS course labs. Our team implemented **[X] styles in total**, covering a range of visual aesthetics from flat graphic design to painterly effects to hand-drawn line art.
-
-| Member | Style(s) Implemented | Entry Point |
-|--------|----------------------|-------------|
-| [Your Name] | Poster / Pop Art, Cartoon, Sketch | `artify_app.m` / `main.m` |
-| [Teammate A] | [TBD] | [TBD] |
-| [Teammate B] | [TBD] | [TBD] |
-
-Each member developed their styles independently. See the corresponding Part below for running instructions, evidence, and evaluation for each member's work.
 
 ## Requirements
 
 - MATLAB R2016a or later
 - Image Processing Toolbox (`edge`, `imopen`, `histeq`, `medfilt2`, `strel`, `ssim`)
 
----
+
 
 
 
 # Part 2 — Poster / Pop Art, Cartoon & Sketch
+
+
+
 
 
 ## Styles Overview
@@ -98,7 +86,7 @@ All functions accept either a file path string or a pre-loaded `double` image ma
 ├── artify_poster.m           # Style: Poster / Pop Art
 ├── artify_cartoon.m          # Style: Cartoon
 ├── artify_sketch.m           # Style: Sketch
-└── evidence/                 # Screenshots and output images
+└── figure2/                 # Screenshots and output images
 ```
 
 
@@ -129,12 +117,12 @@ Input → Mean-Shift colour quantisation → Contrast stretching → Sobel edge 
 
 **Original photograph:**
 
-![Original](evidence/2.png)
+![Original](figure2/2.png)
 
 **Poster / Pop Art result** (Color BW=0.08, nSeeds=400, Edge str=0.5, E=0.9):
 
-![Poster App](evidence/2_poster_app.png)
-![Poster Result](evidence/2_poster_pop_art.png)
+![Poster App](figure2/2_poster_app.png)
+![Poster Result](figure2/2_poster_pop_art.png)
 
 **SSIM: 0.677 | Processing time: 1.67 s**
 
@@ -168,8 +156,8 @@ Input → Morphological opening → Mean-Shift segmentation → LoG edge detecti
 
 **Cartoon result** (Spatial BW=10, Color BW=0.1, Edge str=0.45, SE size=2):
 
-![Cartoon App](evidence/2_cartoon_app.png)
-![Cartoon Result](evidence/2_cartoon.png)
+![Cartoon App](figure2/2_cartoon_app.png)
+![Cartoon Result](figure2/2_cartoon.png)
 
 **SSIM: 0.418 | Processing time: 9.64 s**
 
@@ -203,8 +191,8 @@ Input → Mean-Shift colour quantisation → Grayscale → Canny edge detection 
 
 **Sketch result** (Color BW=0.06, nSeeds=300, Edge thresh=0.15, Line str=0.9):
 
-![Sketch App](evidence/2_sketch_app.png)
-![Sketch Result](evidence/2_sketch.png)
+![Sketch App](figure2/2_sketch_app.png)
+![Sketch Result](figure2/2_sketch.png)
 
 **SSIM: 0.230 | Processing time: 1.09 s**
 
@@ -262,18 +250,3 @@ I would also coordinate with teammates earlier to agree on a shared GUI or commo
 
 This project reinforced that classical image processing — without any machine learning — is both powerful and fully interpretable. Every output produced can be explained step by step using concepts from the course labs: Lab 2 (colour spaces), Lab 3 (edge detection, histogram operations), Lab 4 (morphology), Lab 5 (Mean-Shift). That interpretability is something neural style transfer cannot offer. The project also gave me a much better intuition for when each technique is appropriate: morphological opening before segmentation, Mean-Shift before Canny, contrast stretching after quantisation — the ordering of steps matters as much as the steps themselves.
 
----
-
----
-
-# Part 3 — [Teammate A's Styles]
-
-*Implemented by [Teammate A]. Please add your How to Run, pipeline description, evidence, evaluation, and personal statement here.*
-
----
-
----
-
-# Part 4 — [Teammate B's Styles]
-
-*Implemented by [Teammate B]. Please add your How to Run, pipeline description, evidence, evaluation, and personal statement here.*
