@@ -19,10 +19,7 @@ We built **Artify**, a MATLAB application that converts photographs into artisti
 | **Oil Painting** | Painterly, colour-block effect | Watershed segmentation, median filtering |
 | **Stained Glass** | Mosaic-style, jewel tones, lead lines | k-means segmentation, optional Gothic-arch frame |
 
-The application provides two interfaces:
-
-- **GUI mode** (`artify_app`): Modern interface with style dropdown, per-style parameter tuning, before/after slider comparison, SSIM evaluation, and save functionality.
-- **Script mode** (`main`): Step-by-step dialogs for batch processing Poster, Cartoon, and Sketch styles.
+The application is launched via **`artify_app`**, which provides a modern GUI with style dropdown, per-style parameter tuning, before/after slider comparison, SSIM evaluation, and save functionality.
 
 Shared modules include `meanShiftColorQuant.m` and `meanShiftSegmentation.m`, used across multiple styles for coherent architecture.
 
@@ -32,11 +29,11 @@ Shared modules include `meanShiftColorQuant.m` and `meanShiftSegmentation.m`, us
 
 ### Requirements
 
-- **MATLAB R2016a or later** (for GUI mode)
+- **MATLAB R2016a or later**
 - **MATLAB Image Processing Toolbox** (for `edge`, `strel`, `watershed`, etc.)
 - No additional hardware required
 
-### Running the GUI (recommended)
+### How to Run
 
 1. Open MATLAB and navigate to the `matlab` folder:
    ```matlab
@@ -53,21 +50,6 @@ Shared modules include `meanShiftColorQuant.m` and `meanShiftSegmentation.m`, us
    - Click **Process**
    - Drag the slider to compare result vs original
    - Click **Save Result** to export
-
-### Running the script mode (no GUI)
-
-If you have MATLAB earlier than R2016a, or prefer dialogs:
-
-```matlab
-cd matlab
-main
-```
-
-Follow the dialogs to select an image, style(s), parameters, and save folder. Script mode supports Poster, Cartoon, and Sketch only.
-
-### Default test images
-
-If you cancel the file dialog in script mode, the script will attempt to load `peppers.png` or `football.jpg` from the current directory. You can place one of these in the `matlab` folder for quick testing, or use any of your own images.
 
 ---
 
@@ -111,7 +93,6 @@ To verify the application runs correctly:
 - **Sketch quality**: Canny edge detection can pick up texture (grass, fabric, skin) as well as structure, leading to noisy lines in some images. A DoG (Difference-of-Gaussians) approach could improve selectivity.
 - **Parameter sensitivity**: Some styles (e.g. Poster, Cartoon) require parameter tuning for best results on different image types; default values are tuned for general-purpose use.
 - **Stained Glass output size**: When "Add canvas" is enabled, the output may have different dimensions than the input due to the mosaic frame.
-- **MATLAB version**: The GUI requires MATLAB R2016a or later for `uifigure`. Older versions must use `main.m`.
 
 ### Possible future improvements
 
@@ -126,9 +107,9 @@ To verify the application runs correctly:
 
 ```
 matlab/
-├── artify_app.m          # GUI application (main entry point)
-├── main.m                # Script-mode entry point
-├── getParameters.m       # Parameter dialog for script mode
+├── artify_app.m          # Application entry point
+├── main.m
+├── getParameters.m
 ├── meanShiftColorQuant.m # Colour-only Mean-Shift quantisation
 ├── meanShiftSegmentation.m # 5D spatial-colour Mean-Shift
 ├── artify_poster.m       # Poster / Pop Art style
@@ -149,6 +130,7 @@ matlab/
 
 - Project specification: [DE4-DVS-Labs/Project](https://github.com/DE4-DVS-Labs/Project)
 - Project suggestion 4: "Artify" photographs — turn a photograph into something that looks more like painted artwork
+
 
 
 
