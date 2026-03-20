@@ -28,12 +28,9 @@ Each member developed their styles independently. See the corresponding Part bel
 
 ---
 
----
+
 
 # Part 2 — Poster / Pop Art, Cartoon & Sketch
-
-*Implemented by [Your Name].*
-
 
 
 ## Styles Overview
@@ -104,7 +101,7 @@ All functions accept either a file path string or a pre-loaded `double` image ma
 └── evidence/                 # Screenshots and output images
 ```
 
----
+
 
 ## Style 1: Poster / Pop Art
 
@@ -143,7 +140,7 @@ Input → Mean-Shift colour quantisation → Contrast stretching → Sobel edge 
 
 The relatively high SSIM (0.677) reflects that the poster style preserves the overall luminance structure of the original — large regions map to coherent flat colours — while Sobel outlines reinforce boundaries without distorting the large-scale composition.
 
----
+
 
 ## Style 2: Cartoon
 
@@ -178,7 +175,7 @@ Input → Morphological opening → Mean-Shift segmentation → LoG edge detecti
 
 The lower SSIM (0.418) is expected and desirable: the cartoon style deliberately merges colour regions and redraws edges using LoG rather than preserving photographic texture. The morphological opening step (Lab 4) removes fine surface detail before segmentation, producing the characteristic clean-block look. Processing time is higher because Mean-Shift runs in 5D feature space rather than 3D colour-only.
 
----
+
 
 ## Style 3: Sketch
 
@@ -213,7 +210,7 @@ Input → Mean-Shift colour quantisation → Grayscale → Canny edge detection 
 
 The low SSIM (0.230) is intentional and expected. A pencil sketch is near-binary (black lines on white paper), which is structurally dissimilar to a colour photograph by construction. The metric confirms the style is maximally abstract — it captures structure, not colour. Canny edge detection clearly resolves the mountain ridgelines, tree silhouettes, and boulder shapes.
 
----
+
 
 ## Evaluation
 
@@ -235,7 +232,7 @@ The low SSIM (0.230) is intentional and expected. A pencil sketch is near-binary
 
 ---
 
-## Personal Statement — [Your Name]
+## Personal Statement — Yinuo Pang
 
 ### Contribution
 
